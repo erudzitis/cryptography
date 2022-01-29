@@ -11,7 +11,7 @@ def runCaesarsCipher(message, key, mode):
     for index, currentMessageChar in enumerate(inputMessage):
         if (currentMessageChar in asciiValues):
             currentMessageCharAsciiIndex = asciiValues.index(currentMessageChar)
-            currentMessageCharUpdatedIndex = (currentMessageCharAsciiIndex + inputKey) % 127 if (inputMode == "D") else (currentMessageCharAsciiIndex - inputKey) % 127
+            currentMessageCharUpdatedIndex = (currentMessageCharAsciiIndex + inputKey) % 127 if (inputMode == "E") else (currentMessageCharAsciiIndex - inputKey) % 127
             resultativeAsciiValue = asciiValues[currentMessageCharUpdatedIndex]
             outputMessage += resultativeAsciiValue
 
