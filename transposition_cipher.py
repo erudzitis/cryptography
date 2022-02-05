@@ -1,7 +1,7 @@
 import math
 
 inputMessage = input("Input message: ")
-inputKey = int(input("Input key (0-127): "))
+inputKey = int(input("Input key: "))
 inputMode = input("Input Mode (E/D): ")
 
 # Clamping key's length to not exceed half the length of input message
@@ -26,11 +26,32 @@ def encryptTranspositionCipher(message, key):
         currentColumnElementIndex = columnIndex # holds the value of each column element
         iteration = 0
 
-        # Getting each column rows value. Comparing if index is lower than message length, because plaintext isn't split up evenly, "padding" has to be added
-        while (iteration < totalRows and currentColumnElementIndex < len(message)):
-            outputMessage += message[currentColumnElementIndex]
+        # Getting each column rows value. Plaintext isn't split up evenly, "padding" has to be added
+        while (iteration < totalRows):
+            if (currentColumnElementIndex < len(message)):
+                outputMessage += message[currentColumnElementIndex]
+            else:
+                outputMessage += " "
 
             currentColumnElementIndex += key
             iteration += 1
 
     return outputMessage
+
+def decryptTranspositionCipher(message, key):
+    totalRows = math.ceil(len(message) / key)
+    outputMessage = ""
+
+    for row in range(totalRows):
+        currentRowElementIndex = row
+        iterator = 0
+
+        while (iterator < key and currentRowElementIndex < len(message)):
+            outputMessage += message[currentRowElementIndex]
+
+            currentRowElementIndex += totalRows
+            iterator += 1
+
+    return outputMessage
+
+output = encryptTranspositionCipher(inputMessage, inputKey) if (inputMode == "E") else decryptTranspositionCipher(inputMessage, inputKey)
